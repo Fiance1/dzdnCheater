@@ -350,11 +350,17 @@ function skrocCzasOczekiwaniaNaLosowanie()
  */
 function ktoWygral($tresc)
 {
+    global $cfg_uzytkownik;
+    
     $pattern = '/Zwyciêzc± dzisiejszej edycji konkursu jest u¿ytkownik &quot;(.*?)&quot;./is';
     if (preg_match($pattern, $tresc, $matches) === 1) {
         $zwyciezca = $matches[1];
         komunikat(KOMUNIKAT_TYP_DEBUG, 'Zwyciezca: ' . $zwyciezca);
-        return $zwyciezca;
+        if ($zwyciezca === $cfg_uzytkownik) {
+            return 'Zwyciezca zostales TY! Gratulacje !!!';
+        } else {
+            return 'Zwyciezca zostal "' . $zwyciezca . '"';
+        }
     }
 
     komunikat(KOMUNIKAT_TYP_BLAD, 'Brak danych zwyciezcy');

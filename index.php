@@ -46,10 +46,7 @@ do {
     // koniec edycji - ktos wygral wczesniej
     elseif (jestWTresci($tresc, 'Do udzia³u w nastêpnej edycji zapraszamy jutro.')) {
         $ktoWygral = ktoWygral($tresc);
-        komunikat(KOMUNIKAT_TYP_INFO, 'W dniu dzisiejszym koniec edycji.\nZwyciezca zostal "' . $ktoWygral . '"');
-        if (czyTrafienie($tresc)) {
-            komunikat(KOMUNIKAT_TYP_INFO, 'Gratulacje !!!');
-        }
+        komunikat(KOMUNIKAT_TYP_INFO, 'W dniu dzisiejszym koniec edycji.\n' . $ktoWygral);
         $wynik = 0;
     }
     
