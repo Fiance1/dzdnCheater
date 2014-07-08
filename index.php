@@ -31,13 +31,13 @@ do {
     
     // trzeba poczekac na losowanie
     elseif (jestWTresci($tresc, 'Musisz zaczekaæ jeszcze')) {
-        zakresLosowania($tresc);
         $czas = czasOczekiwaniaNaLosowanie($tresc);
         $czekaj = czekaj($czas);
         komunikat(KOMUNIKAT_TYP_INFO, 'Oczekiwanie na losowanie: ' . formatujCzas($czekaj) . ' (wymagane: ' . $czas . ')');
 
         // mozna skrocic czas oczekiwania
         if (jestWTresci($tresc, 'Skróæ do 15 minut czekanie')) {
+            zakresLosowania($tresc);
             skrocCzasOczekiwaniaNaLosowanie();
         } else {
             $wynik = $czekaj;
