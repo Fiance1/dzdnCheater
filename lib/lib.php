@@ -387,7 +387,13 @@ function szansa($zakresOd, $zakresDo)
  */
 function typowanyWynik($zakresOd, $zakresDo, $komunikat = true)
 {
-    $wynik = intval(ceil($zakresDo - $zakresOd) / 2) + $zakresOd;
+    global $cfg_metodaLosowa;
+    
+    if ($cfg_metodaLosowa === true) {
+        $wynik = mt_rand($zakresOd + 1, $zakresDo - 1);
+    } else {
+        $wynik = intval(ceil($zakresDo - $zakresOd) / 2) + $zakresOd;
+    }
 
     if ($komunikat) {
         komunikat(KOMUNIKAT_TYP_INFO, 'Typowany wynik: ' . $wynik, false);
@@ -442,6 +448,8 @@ function szacowanyCzasDoZakonczenia($zakresOd, $zakresDo)
  */
 function zakresLosowania($tresc)
 {
+    global $cfg_metodaLosowa;
+    
     $pattern = '/Dzisiejsza liczba wylosowana dla ciebie jest wiêksza od (\d{1,7}) i mniejsza od (\d{1,7})/is';
     if (preg_match($pattern, $tresc, $matches) === 1) {
         $zakresOd = intval($matches[1]);
@@ -449,9 +457,11 @@ function zakresLosowania($tresc)
 
         $szansa = szansa($zakresOd, $zakresDo);
 
-        komunikat(KOMUNIKAT_TYP_DEBUG, 'Zakres od: ' . $zakresOd . ' do ' . $zakresDo);
+        komunikat(KOMUNIKAT_TYP_INFO, 'Zakres od: ' . $zakresOd . ' do ' . $zakresDo);
         komunikat(KOMUNIKAT_TYP_INFO, 'Szansa trafienia: 1 do ' . $szansa);
-        komunikat(KOMUNIKAT_TYP_INFO, 'Szacowany czas do zakonczenia: ' . formatujCzas(szacowanyCzasDoZakonczenia($zakresOd, $zakresDo)));
+        if ($cfg_metodaLosowa !== true) {
+            komunikat(KOMUNIKAT_TYP_INFO, 'Szacowany czas do zakonczenia: ' . formatujCzas(szacowanyCzasDoZakonczenia($zakresOd, $zakresDo)));
+        }
 
         return array($zakresOd, $zakresDo);
     }
@@ -465,7 +475,7 @@ function zakresLosowania($tresc)
  * @param integer $wynik
  * @return boolean
  */
-function zgadnijWynik($wynik)
+function strzelaj($wynik)
 {
     global $cfg_timeout, $cfg_urlKonkurs, $cfg_cookieFile;
 
@@ -517,7 +527,7 @@ function typujWynik($tresc)
 
     list($zakresOd, $zakresDo) = zakresLosowania($tresc);
     $typowanyWynik = typowanyWynik($zakresOd, $zakresDo);
-    $trescWyniku   = zgadnijWynik($typowanyWynik);
+    $trescWyniku   = strzelaj($typowanyWynik);
 
     return czyTrafienie($trescWyniku);
 }
