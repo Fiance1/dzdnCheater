@@ -174,20 +174,23 @@ function zalogujDoSerwisu()
  * @param string $czas
  * @return integer
  */
-function czasWSekundach($czas)
+function czasWSekundach($czas = null)
 {
     global $cfg_defaultDelay;
+    
+    if (!is_null($czas)) {
+        $pattern = '/((\d{1,2}) godz. )?((\d{1,2}) min. )?(\d{1,2}) sek./is';
+        if (preg_match($pattern, $czas, $matches) === 1) {
+            $godzin = intval($matches[2]);
+            $minut  = intval($matches[4]);
+            $sekund = intval($matches[5]);
 
-    $pattern = '/((\d{1,2}) godz. )?((\d{1,2}) min. )?(\d{1,2}) sek./is';
-    if (preg_match($pattern, $czas, $matches) === 1) {
-        $godzin = intval($matches[2]);
-        $minut  = intval($matches[4]);
-        $sekund = intval($matches[5]);
+            return $godzin * 3600 + $minut * 60 + $sekund;
+        }
 
-        return $godzin * 3600 + $minut * 60 + $sekund;
+        komunikat(KOMUNIKAT_TYP_BLAD, 'Blad parsowania czasu');
     }
-
-    komunikat(KOMUNIKAT_TYP_BLAD, 'Blad parsowania czasu');
+    
     return $cfg_defaultDelay;
 }
 
@@ -196,10 +199,10 @@ function czasWSekundach($czas)
  * @param string $czas
  * @return integer
  */
-function czekaj($czas)
+function czekaj($czas = null)
 {
     global $cfg_minReactionDelay, $cfg_maxReactionDelay;
-
+    
     return czasWSekundach($czas) + rand($cfg_minReactionDelay, $cfg_maxReactionDelay);
 }
 

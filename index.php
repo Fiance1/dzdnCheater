@@ -55,6 +55,10 @@ do {
     elseif (jestWTresci($tresc, 'Dzisiejsza liczba wylosowana dla ciebie ')) {
         if (typujWynik($tresc)) {
             $wynik = 0;
+        } else {
+            $czekaj = czekaj();
+            komunikat(KOMUNIKAT_TYP_INFO, 'Oczekiwanie na losowanie: ' . formatujCzas($czekaj));
+            $wynik = $czekaj;
         }
     }
     

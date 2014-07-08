@@ -23,7 +23,7 @@ $cfg_maxReactionDelay = 180;
 // timeout polaczenia
 $cfg_timeout      = 10;
 
-// domyslne opoznienie ponownej proby w przypadku bleduu parsowania czasu
+// domyslne opoznienie ponownej proby
 $cfg_defaultDelay = 30;
 
 // sciezka do pliku cookie
