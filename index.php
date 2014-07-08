@@ -31,6 +31,7 @@ do {
     
     // trzeba poczekac na losowanie
     elseif (jestWTresci($tresc, 'Musisz zaczekaæ jeszcze')) {
+        zakresLosowania($tresc);
         $czas = czasOczekiwaniaNaLosowanie($tresc);
         $czekaj = czekaj($czas);
         komunikat(KOMUNIKAT_TYP_INFO, 'Oczekiwanie na losowanie: ' . formatujCzas($czekaj) . ' (wymagane: ' . $czas . ')');
@@ -53,10 +54,7 @@ do {
     // losowanie
     elseif (jestWTresci($tresc, 'Dzisiejsza liczba wylosowana dla ciebie ')) {
         if (typujWynik($tresc)) {
-            komunikat(KOMUNIKAT_TYP_INFO, ' ... Wygrales :) !!!');
             $wynik = 0;
-        } else {
-            komunikat(KOMUNIKAT_TYP_INFO, ' ... pudlo :(');
         }
     }
     

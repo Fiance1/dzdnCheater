@@ -512,8 +512,14 @@ function strzelaj($wynik)
 function czyTrafienie($tresc)
 {
     $pattern = '/Gratulujemy wygranej w dzisiejszej edycji konkursu!/is';
-
-    return (preg_match($pattern, $tresc, $matches) === 1);
+    $trafienie = (preg_match($pattern, $tresc, $matches) === 1);
+    if ($trafienie === false) {
+        komunikat(KOMUNIKAT_TYP_INFO, ' ... pudlo :(');
+    } else {
+        komunikat(KOMUNIKAT_TYP_INFO, ' ... Wygrales :) !!!');
+    }
+    
+    return $trafienie;
 }
 
 /**
