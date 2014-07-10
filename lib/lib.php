@@ -540,3 +540,14 @@ function typujWynik($tresc)
 
     return czyTrafienie($trescWyniku);
 }
+
+/**
+ * Symulacja dzialania czlowieka
+ */
+function symulujCzlowieka()
+{
+    $czekaj = czekaj();
+    komunikat(KOMUNIKAT_TYP_INFO, 'Oczekiwanie na losowanie: ' . formatujCzas($czekaj));
+    
+    return $czekaj;
+}

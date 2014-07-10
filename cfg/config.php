@@ -13,15 +13,15 @@ $cfg_urlSkrocenieCzasuOczekiwania = 'http://wypozycz.dzdn.pl/wol/zgadspyt.php';
 $cfg_urlSzukaniePoSygnaturze      = 'http://wypozycz.dzdn.pl/wol/katalog.php?co=s&i=';
 
 // uzytkownik i haslo w serwisie
-$cfg_uzytkownik = 'qwerty';
-$cfg_haslo      = 'qwerty';
+$cfg_uzytkownik = '';
+$cfg_haslo      = '';
 
 // minimalny i maksymalny czas "ludzkiego" opoznienia reakcji na gotowosc proby
-$cfg_minReactionDelay = 30;
-$cfg_maxReactionDelay = 180;
+$cfg_minReactionDelay = 15;
+$cfg_maxReactionDelay = 90;
 
 // timeout polaczenia
-$cfg_timeout      = 10;
+$cfg_timeout      = 30;
 
 // domyslne opoznienie ponownej proby
 $cfg_defaultDelay = 30;

@@ -55,10 +55,6 @@ do {
     elseif (jestWTresci($tresc, 'Dzisiejsza liczba wylosowana dla ciebie ')) {
         if (typujWynik($tresc)) {
             $wynik = 0;
-        } else {
-            $czekaj = czekaj();
-            komunikat(KOMUNIKAT_TYP_INFO, 'Oczekiwanie na losowanie: ' . formatujCzas($czekaj));
-            $wynik = $czekaj;
         }
     }
     
@@ -66,6 +62,11 @@ do {
     else {
         komunikat(KOMUNIKAT_TYP_BLAD, 'Cos poszlo nie tak');
         $wynik = 0;
+    }
+    
+    // opo¼nienie (symulacja dzialania czlowieka)
+    if (is_null($wynik)) {
+        $wynik = symulujCzlowieka();
     }
 } while (is_null($wynik));
 
