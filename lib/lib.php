@@ -203,6 +203,7 @@ function czekaj($czas = null)
 {
     global $cfg_minReactionDelay, $cfg_maxReactionDelay;
     
+    
     return czasWSekundach($czas) + rand($cfg_minReactionDelay, $cfg_maxReactionDelay);
 }
 

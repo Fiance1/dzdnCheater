@@ -18,13 +18,13 @@ $cfg_haslo      = '';
 
 // minimalny i maksymalny czas "ludzkiego" opoznienia reakcji na gotowosc proby
 $cfg_minReactionDelay = 15;
-$cfg_maxReactionDelay = 90;
+$cfg_maxReactionDelay = 60;
 
 // timeout polaczenia
 $cfg_timeout      = 30;
 
 // domyslne opoznienie ponownej proby
-$cfg_defaultDelay = 30;
+$cfg_defaultDelay = 10;
 
 // sciezka do pliku cookie
 $cfg_cookieFile = dirname(dirname(__FILE__)) . '/tmp/cookie.txt';
