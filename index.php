@@ -61,7 +61,6 @@ do {
     // blad
     else {
         komunikat(KOMUNIKAT_TYP_BLAD, 'Cos poszlo nie tak');
-        $wynik = 0;
     }
 
     // opo¼nienie (symulacja dzialania czlowieka)

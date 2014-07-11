@@ -77,7 +77,7 @@ function komunikat($typ, $wiadomosc, $nowaLinia = true, $data = true)
             piszNaEkran($wiadomosc, ($cfg_dataWKomunikatach && $data));
             break;
         case KOMUNIKAT_TYP_BLAD:
-            piszNaEkran('[' . $typ . ']' . $wiadomosc, ($cfg_dataWKomunikatach && $data));
+            piszNaEkran('[' . $typ . '] ' . $wiadomosc, ($cfg_dataWKomunikatach && $data));
             break;
         case KOMUNIKAT_TYP_DEBUG:
             break;
