@@ -46,7 +46,7 @@ function piszNaEkran($wiadomosc, $data = false)
     }
     
     if ($data === true) {
-        $wiadomosc = date('r') . ' ' . $wiadomosc;
+        $wiadomosc = date('Y-m-d H:i:s') . ' ' . $wiadomosc;
     }
 
     echo $wiadomosc;
