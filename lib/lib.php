@@ -56,8 +56,10 @@ function piszNaEkran($wiadomosc, $data = false)
  * Logowanie komunikatow
  * @param integer $typ
  * @param string $wiadomosc
+ * @param boolean $nowaLinia
+ * @param boolean $data
  */
-function komunikat($typ, $wiadomosc, $nowaLinia = true)
+function komunikat($typ, $wiadomosc, $nowaLinia = true, $data = true)
 {
     global $cfg_dataWKomunikatach;
     
@@ -71,7 +73,7 @@ function komunikat($typ, $wiadomosc, $nowaLinia = true)
     zapiszDoPliku($typ, $wiadomosc . ($nowaLinia === false ? NOWA_LINIA_ZNAK : ''));
 
     if ($typ === KOMUNIKAT_TYP_INFO) {
-        piszNaEkran($wiadomosc, $cfg_dataWKomunikatach);
+        piszNaEkran($wiadomosc, ($cfg_dataWKomunikatach && $data));
     }
 }
 
@@ -526,9 +528,9 @@ function czyTrafienie($tresc)
     $pattern   = '/Gratulujemy wygranej w dzisiejszej edycji konkursu!/is';
     $trafienie = (preg_match($pattern, $tresc, $matches) === 1);
     if ($trafienie === false) {
-        komunikat(KOMUNIKAT_TYP_INFO, ' ... pudlo :(');
+        komunikat(KOMUNIKAT_TYP_INFO, ' ... pudlo :(', true, false);
     } else {
-        komunikat(KOMUNIKAT_TYP_INFO, ' ... Wygrales :) !!!');
+        komunikat(KOMUNIKAT_TYP_INFO, ' ... Wygrales :) !!!', true, false);
     }
 
     return $trafienie;
