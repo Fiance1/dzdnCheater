@@ -471,8 +471,7 @@ function zakresLosowania($tresc)
 
         $szansa = szansa($zakresOd, $zakresDo);
 
-        komunikat(KOMUNIKAT_TYP_INFO, 'Zakres od: ' . $zakresOd . ' do ' . $zakresDo);
-        komunikat(KOMUNIKAT_TYP_INFO, 'Szansa trafienia: 1 do ' . $szansa);
+        komunikat(KOMUNIKAT_TYP_INFO, 'Zakres od: ' . $zakresOd . ' do ' . $zakresDo . '. Szansa trafienia: 1 do ' . $szansa);
         if ($cfg_metodaLosowa !== true) {
             komunikat(KOMUNIKAT_TYP_INFO, 'Szacowany czas do zakonczenia: ' . formatujCzas(szacowanyCzasDoZakonczenia($zakresOd, $zakresDo)));
         }
