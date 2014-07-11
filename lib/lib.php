@@ -4,8 +4,6 @@ define('KOMUNIKAT_TYP_BLAD', 'BLAD');
 define('KOMUNIKAT_TYP_INFO', 'INFO');
 define('KOMUNIKAT_TYP_DEBUG', 'DEBUG');
 
-define('NOWA_LINIA_ZNAK', "\r\n");
-
 /**
  * Zapis logow do pliku
  * @param string $typ
@@ -29,9 +27,7 @@ function zapiszDoPliku($typ, $wiadomosc)
  */
 function czyTrybCgi()
 {
-    $sapi = php_sapi_name();
-
-    return (in_array(substr($sapi, 0, 3), array('cgi', 'cli')));
+    return preg_match('/cgi|cli/i', PHP_SAPI) === 1;
 }
 
 /**
@@ -68,9 +64,9 @@ function komunikat($typ, $wiadomosc, $nowaLinia = true, $data = true)
     if ($nowaLinia === true) {
         $wiadomosc .= '\n';
     }
-    $wiadomosc = str_replace($znakiNowejLinii, NOWA_LINIA_ZNAK, $wiadomosc);
+    $wiadomosc = str_replace($znakiNowejLinii, PHP_EOL, $wiadomosc);
 
-    zapiszDoPliku($typ, $wiadomosc . ($nowaLinia === false ? NOWA_LINIA_ZNAK : ''));
+    zapiszDoPliku($typ, $wiadomosc . ($nowaLinia === false ? PHP_EOL : ''));
 
     switch ($typ) {
         case KOMUNIKAT_TYP_INFO:
