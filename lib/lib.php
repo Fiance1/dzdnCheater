@@ -186,12 +186,14 @@ function czasWSekundach($czas = null)
             $sekund = intval($matches[5]);
 
             return $godzin * 3600 + $minut * 60 + $sekund;
+        } else {
+            komunikat(KOMUNIKAT_TYP_BLAD, 'Blad parsowania czasu');
+            
+            return $cfg_defaultDelay;
         }
-
-        komunikat(KOMUNIKAT_TYP_BLAD, 'Blad parsowania czasu');
     }
     
-    return $cfg_defaultDelay;
+    return 0;
 }
 
 /**
@@ -202,7 +204,6 @@ function czasWSekundach($czas = null)
 function czekaj($czas = null)
 {
     global $cfg_minReactionDelay, $cfg_maxReactionDelay;
-    
     
     return czasWSekundach($czas) + rand($cfg_minReactionDelay, $cfg_maxReactionDelay);
 }

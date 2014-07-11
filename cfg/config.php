@@ -17,11 +17,11 @@ $cfg_uzytkownik = '';
 $cfg_haslo      = '';
 
 // minimalny i maksymalny czas "ludzkiego" opoznienia reakcji na gotowosc proby
-$cfg_minReactionDelay = 15;
-$cfg_maxReactionDelay = 60;
+$cfg_minReactionDelay = 3;
+$cfg_maxReactionDelay = 20;
 
 // timeout polaczenia
-$cfg_timeout      = 30;
+$cfg_timeout      = 0;
 
 // domyslne opoznienie ponownej proby
 $cfg_defaultDelay = 10;
