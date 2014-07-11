@@ -72,8 +72,15 @@ function komunikat($typ, $wiadomosc, $nowaLinia = true, $data = true)
 
     zapiszDoPliku($typ, $wiadomosc . ($nowaLinia === false ? NOWA_LINIA_ZNAK : ''));
 
-    if ($typ === KOMUNIKAT_TYP_INFO) {
-        piszNaEkran($wiadomosc, ($cfg_dataWKomunikatach && $data));
+    switch ($typ) {
+        case KOMUNIKAT_TYP_INFO:
+            piszNaEkran($wiadomosc, ($cfg_dataWKomunikatach && $data));
+            break;
+        case KOMUNIKAT_TYP_BLAD:
+            piszNaEkran('[' . $typ . ']' . $wiadomosc, ($cfg_dataWKomunikatach && $data));
+            break;
+        case KOMUNIKAT_TYP_DEBUG:
+            break;
     }
 }
 
