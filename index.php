@@ -14,24 +14,24 @@ do {
     if (jestWTresci($tresc, 'Podaj swoj± nazwê u¿ytkownika i has³o.')) {
         zalogujDoSerwisu();
     }
-    
+
     // przekroczona ilosc zwyciestw w miesiacu
     elseif (jestWTresci($tresc, 'Nie mo¿esz zwyciê¿yæ w konkursie wiêcej ni¿')) {
         komunikat(KOMUNIKAT_TYP_INFO, 'Przekroczono dopuszczalna ilosc zwyciestw w miesiacu');
         $wynik = 0;
     }
-    
+
     // losowanie jeszcze sie nie zaczelo
     elseif (jestWTresci($tresc, 'Do rozpoczêcia dzisiejszej edycji pozosta³o jeszcze')) {
-        $czas  = czasOczekiwaniaNaNowaSesje($tresc);
+        $czas   = czasOczekiwaniaNaNowaSesje($tresc);
         $czekaj = czekaj($czas);
         komunikat(KOMUNIKAT_TYP_INFO, 'Oczekiwanie na nowa sesje tego dnia: ' . formatujCzas($czekaj) . ' (wymagane: ' . $czas . ')');
-        $wynik = $czekaj;
+        $wynik  = $czekaj;
     }
-    
+
     // trzeba poczekac na losowanie
     elseif (jestWTresci($tresc, 'Musisz zaczekaæ jeszcze')) {
-        $czas = czasOczekiwaniaNaLosowanie($tresc);
+        $czas   = czasOczekiwaniaNaLosowanie($tresc);
         $czekaj = czekaj($czas);
         komunikat(KOMUNIKAT_TYP_INFO, 'Oczekiwanie na losowanie: ' . formatujCzas($czekaj) . ' (wymagane: ' . $czas . ')');
 
@@ -43,27 +43,27 @@ do {
             $wynik = $czekaj;
         }
     }
-    
+
     // koniec edycji - ktos wygral wczesniej
     elseif (jestWTresci($tresc, 'Do udzia³u w nastêpnej edycji zapraszamy jutro.')) {
         $ktoWygral = ktoWygral($tresc);
         komunikat(KOMUNIKAT_TYP_INFO, 'W dniu dzisiejszym koniec edycji.\n' . $ktoWygral);
-        $wynik = 0;
+        $wynik     = 0;
     }
-    
+
     // losowanie
     elseif (jestWTresci($tresc, 'Dzisiejsza liczba wylosowana dla ciebie ')) {
         if (typujWynik($tresc)) {
             $wynik = 0;
         }
     }
-    
+
     // blad
     else {
         komunikat(KOMUNIKAT_TYP_BLAD, 'Cos poszlo nie tak');
         $wynik = 0;
     }
-    
+
     // opo¼nienie (symulacja dzialania czlowieka)
     if (is_null($wynik)) {
         $wynik = symulujCzlowieka();

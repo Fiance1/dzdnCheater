@@ -37,11 +37,16 @@ function czyTrybCgi()
 /**
  * Wypisanie komunikatu na ekranie
  * @param string $wiadomosc
+ * @param boolean $data
  */
-function piszNaEkran($wiadomosc)
+function piszNaEkran($wiadomosc, $data = false)
 {
     if (czyTrybCgi() === false) {
         $wiadomosc = nl2br($wiadomosc);
+    }
+    
+    if ($data === true) {
+        $wiadomosc = date('r') . ' ' . $wiadomosc;
     }
 
     echo $wiadomosc;
@@ -54,8 +59,10 @@ function piszNaEkran($wiadomosc)
  */
 function komunikat($typ, $wiadomosc, $nowaLinia = true)
 {
-    $znakiNowejLinii = array('\r\n', '\n\r', '\r', '\n');
+    global $cfg_dataWKomunikatach;
     
+    $znakiNowejLinii = array('\r\n', '\n\r', '\r', '\n');
+
     if ($nowaLinia === true) {
         $wiadomosc .= '\n';
     }
@@ -64,7 +71,7 @@ function komunikat($typ, $wiadomosc, $nowaLinia = true)
     zapiszDoPliku($typ, $wiadomosc . ($nowaLinia === false ? NOWA_LINIA_ZNAK : ''));
 
     if ($typ === KOMUNIKAT_TYP_INFO) {
-        piszNaEkran($wiadomosc);
+        piszNaEkran($wiadomosc, $cfg_dataWKomunikatach);
     }
 }
 
@@ -177,7 +184,7 @@ function zalogujDoSerwisu()
 function czasWSekundach($czas = null)
 {
     global $cfg_defaultDelay;
-    
+
     if (!is_null($czas)) {
         $pattern = '/((\d{1,2}) godz. )?((\d{1,2}) min. )?(\d{1,2}) sek./is';
         if (preg_match($pattern, $czas, $matches) === 1) {
@@ -188,11 +195,11 @@ function czasWSekundach($czas = null)
             return $godzin * 3600 + $minut * 60 + $sekund;
         } else {
             komunikat(KOMUNIKAT_TYP_BLAD, 'Blad parsowania czasu');
-            
+
             return $cfg_defaultDelay;
         }
     }
-    
+
     return 0;
 }
 
@@ -204,7 +211,7 @@ function czasWSekundach($czas = null)
 function czekaj($czas = null)
 {
     global $cfg_minReactionDelay, $cfg_maxReactionDelay;
-    
+
     return czasWSekundach($czas) + rand($cfg_minReactionDelay, $cfg_maxReactionDelay);
 }
 
@@ -356,7 +363,7 @@ function skrocCzasOczekiwaniaNaLosowanie()
 function ktoWygral($tresc)
 {
     global $cfg_uzytkownik;
-    
+
     $pattern = '/Zwyciêzc± dzisiejszej edycji konkursu jest u¿ytkownik &quot;(.*?)&quot;./is';
     if (preg_match($pattern, $tresc, $matches) === 1) {
         $zwyciezca = $matches[1];
@@ -393,7 +400,7 @@ function szansa($zakresOd, $zakresDo)
 function typowanyWynik($zakresOd, $zakresDo, $komunikat = true)
 {
     global $cfg_metodaLosowa;
-    
+
     if ($cfg_metodaLosowa === true) {
         $wynik = mt_rand($zakresOd + 1, $zakresDo - 1);
     } else {
@@ -454,7 +461,7 @@ function szacowanyCzasDoZakonczenia($zakresOd, $zakresDo)
 function zakresLosowania($tresc)
 {
     global $cfg_metodaLosowa;
-    
+
     $pattern = '/Dzisiejsza liczba wylosowana dla ciebie jest wiêksza od (\d{1,7}) i mniejsza od (\d{1,7})/is';
     if (preg_match($pattern, $tresc, $matches) === 1) {
         $zakresOd = intval($matches[1]);
@@ -516,14 +523,14 @@ function strzelaj($wynik)
  */
 function czyTrafienie($tresc)
 {
-    $pattern = '/Gratulujemy wygranej w dzisiejszej edycji konkursu!/is';
+    $pattern   = '/Gratulujemy wygranej w dzisiejszej edycji konkursu!/is';
     $trafienie = (preg_match($pattern, $tresc, $matches) === 1);
     if ($trafienie === false) {
         komunikat(KOMUNIKAT_TYP_INFO, ' ... pudlo :(');
     } else {
         komunikat(KOMUNIKAT_TYP_INFO, ' ... Wygrales :) !!!');
     }
-    
+
     return $trafienie;
 }
 
@@ -550,6 +557,6 @@ function symulujCzlowieka()
 {
     $czekaj = czekaj();
     komunikat(KOMUNIKAT_TYP_INFO, 'Oczekiwanie na losowanie: ' . formatujCzas($czekaj));
-    
+
     return $czekaj;
 }

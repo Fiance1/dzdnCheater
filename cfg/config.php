@@ -7,6 +7,9 @@
 // metoda losowa
 $cfg_metodaLosowa = true;
 
+// data w komunikatach
+$cfg_dataWKomunikatach = true;
+
 // adresy url
 $cfg_urlKonkurs                   = 'http://wypozycz.dzdn.pl/wol/zgadst.php';
 $cfg_urlSkrocenieCzasuOczekiwania = 'http://wypozycz.dzdn.pl/wol/zgadspyt.php';
@@ -21,7 +24,7 @@ $cfg_minReactionDelay = 3;
 $cfg_maxReactionDelay = 20;
 
 // timeout polaczenia
-$cfg_timeout      = 0;
+$cfg_timeout = 0;
 
 // domyslne opoznienie ponownej proby
 $cfg_defaultDelay = 10;
@@ -30,15 +33,14 @@ $cfg_defaultDelay = 10;
 $cfg_cookieFile = dirname(dirname(__FILE__)) . '/tmp/cookie.txt';
 
 // sciezka do katalogu logow
-$cfg_logDir    = dirname(dirname(__FILE__)) . '/tmp/';
+$cfg_logDir = dirname(dirname(__FILE__)) . '/tmp/';
 
 // kodowanie
-$cfg_charset      = 'iso-8859-2';
+$cfg_charset = 'iso-8859-2';
 
 
 /**
  * Ustawienia wstepne
  */
-
 // kodowanie
 mb_internal_encoding($cfg_charset);
